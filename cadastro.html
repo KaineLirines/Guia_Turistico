@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BumbaMeuMaranhão</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="cabecalho_div">
+            <h1 class="logo">
+                BumbaMeuMaranhão
+            </h1>
+            <nav>
+                <ul class="cabecalho_div_menu">
+                    <div class="div_menu">
+                        <li class="menu_item"><a href="./cadastro.html">Efetue seu cadastro</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./index.html"><img src="./assets/coracao.png" alt="">Favoritos</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="/index.html"><img src="./assets/carrinho-de-compras.png" alt="">Carrinho</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./login.html"><img src="./assets/do-utilizador.png" alt="">Meu Perfil</a></li>    
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="principal_cadastro">
+        <div class="sec_cadastro">
+            <h1 class="s_titulo">Formulário de Cadastro</h1>
+            <form action="" method="post" id="Form" class="div_dados">
+                <p>Informe seu nome: *</p>
+                <input class="dados" placeholder="Nome" name="nome" type="text">
+                <p class="data_nascimento">Sua data de nascimento:</p>
+                <input class="data_input" type="date" id="data" name="dataNascimento">
+                <p>Informe um E-mail: *</p>
+                <input class="dados" type="text" id="EmailRegister" name="email" placeholder="E-mail">
+                </p>Informe uma Senha: *</p>
+                <input class="dados" placeholder="senha" name="senha" type="password">
+                <p>Informe um CEP: *</p>
+                <input class="dados" type="number" id="CEPRegister" name="cep" placeholder="CEP">
+                <p>Informe seu Telefone: *</p>
+                <input class="dados" type="number" id="PhoneRegister" name="telefone" placeholder="Telefone de contato">
+                <button type="submit">Cadastrar</button>
+            </form>
+            <p class="atencao">Atenção: Todos os dados acimas com * devem ser preenchidos. </p>
+            <div class="btn_final">
+                <a class="btn_cancelar" href="index.html">Voltar Página Inicial</a>
+                <a href="login.html">Já possui uma conta ? Logue clicando aqui.</a>
+            </div>
+        </div>
+        <script>
+            const form = document.getElementById('form')
+
+            form.addEventListener('submit', async event => {
+                const data = new FormData(form);
+
+                console.log(Array.from(data));
+
+                try{
+                    const res = await fetch(
+                        'http://localhost:3000/usuarios',
+                        {
+                            method:'POST',
+                            body: data,
+                        },
+                    );
+                    
+                    const resData = await res.json();
+
+                    console.log(resData);
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                    });
+        </script>
+    </main>
+    <footer>
+        <p>© 2024 - BumbaMeuMaranhão. Kaine Lirines</p>
+    </footer>
+</body>

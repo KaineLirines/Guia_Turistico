@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BumbaMeuMaranhão</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="cabecalho_div">
+            <h1 class="logo">
+                BumbaMeuMaranhão
+            </h1>
+            <nav>
+                <ul class="cabecalho_div_menu">
+                    <div class="div_menu">
+                        <li class="menu_item"><a href="./cadastro.html">Efetue seu cadastro</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./index.html"><img src="./assets/coracao.png" alt="">Favoritos</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="/index.html"><img src="./assets/carrinho-de-compras.png" alt="">Carrinho</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./login.html"><img src="./assets/do-utilizador.png" alt="">Meu Perfil</a></li>    
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="principal_cadastro">
+        <section class="sec_login">
+            <h1 class="s_titulo">Login</h1>
+            <div class="div_dados">
+                <p>
+                    Informe seu e-mail:
+                </p>
+                <input class="dados" type="text" id="email" onchange="validateFields()" placeholder="E-mail">
+                <p>
+                    Informe sua senha:
+                </p>
+                <input class="dados" type="password" id="password" onchange="validateFields()" placeholder="Informe sua senha">
+            </div>
+            <p class="atencao">Atenção: Todos os dados acimas devem ser preenchidos. </p>
+            <div class="btn_final">
+                <button class="btn_cancelar" >Voltar Menu</button>
+                <button class="btn_proximo" id="login-button" disabled="true">Logar</button>
+                <a href="cadastro.html">Caso não tenha se registrado clique aqui.</a>
+            </div>
+            </section>
+    </main>
+    <footer>
+        <p>© 2024 - BumbaMeuMaranhão. Kaine Lirines</p>
+    </footer>
+    <script src="script.js"></script>
+</body>

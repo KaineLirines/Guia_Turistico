@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BumbaMeuMaranhão</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="cabecalho_div">
+            <h1 class="logo">BumbaMeuMaranhão</h1>
+            <nav>
+                <ul class="cabecalho_div_menu">
+                    <div class="div_menu">
+                        <li class="menu_item"><a href="./cadastro.html">Efetue seu cadastro</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./index.html"><img src="./assets/coracao.png" alt="">Favoritos</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="/index.html"><img src="./assets/carrinho-de-compras.png" alt="">Carrinho</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./login.html"><img src="./assets/do-utilizador.png" alt="">Meu Perfil</a></li>    
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="principal">
+        <div class="principal_intro">
+            <div class="principal_intro_text">
+                <h1>Explore o Maranhão e tenha viagens inesquecíveis</h1>
+                <p>O Maranhão é conhecido por sua rica cultura, que é uma mistura de influências indígenas, africanas e portuguesas. Festas populares como o Bumba Meu Boi, uma das maiores manifestações culturais do estado, atraem turistas de todo o Brasil e do mundo. A culinária maranhense também é diversa e saborosa, com pratos típicos como o arroz de cuxá, que utiliza ingredientes locais como o vinagreira e o camarão seco.</p>
+            </div>
+        </div>
+        <section class="sec_regiao">
+                <a class="btn_regiao_sul" href="regiaoSul.html">  Região Sul Maranhense</a>
+                <a class="btn_regiao_norte" href="regiaoNorte.html"> Região Norte Maranhense</a>
+                <a class="btn_regiao_central" href="regiaoCentral.html"> Região Central Maranhense</a>
+                <a class="btn_regiao_oeste" href="regiaoOeste.html"> Região Oeste Maranhense</a>                
+                <a class="btn_regiao_leste" href="regiaoLeste.html"> Região Leste Maranhense</a>
+        </section>
+        </div>
+        <section class="sec_guia">
+            <h1>Guia Turístico</h1>
+            <input type="text" id="search-input" placeholder="Buscar cidade...">
+            <button id="search-button">Buscar</button>
+            <div id="results"></div>
+            <div id="details" style="display: none;">
+                <h2 id="details-name"></h2>
+                <p id="details-description"></p>
+                <button id="back-button">Voltar</button>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.getElementById('search-button').addEventListener('click', () => {
+        const query = document.getElementById('search-input').value;
+        fetchResults(query);
+    });
+
+    function fetchResults(query) {
+        fetch(`/api/destinations?q=${query}`)
+            .then(response => response.json())
+            .then(data => displayResults(data))
+            .catch(error => console.error('Erro:', error));
+    }
+
+    function displayResults(results) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+
+        results.forEach(result => {
+            const resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+            resultItem.textContent = `${result.name} - ${result.region}`;
+            resultItem.addEventListener('click', () => {
+                fetchDetails(result.id);
+            });
+            resultsDiv.appendChild(resultItem);
+        });
+    }
+
+    function fetchDetails(id) {
+        fetch(`/api/destination/${id}`)
+            .then(response => response.json())
+            .then(data => displayDetails(data))
+            .catch(error => console.error('Erro:', error));
+    }
+
+    function displayDetails(destination) {
+        document.getElementById('details-name').textContent = destination.name;
+        document.getElementById('details-description').textContent = destination.description;
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('details').style.display = 'block';
+    }
+
+    document.getElementById('back-button').addEventListener('click', () => {
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('details').style.display = 'none';
+    });
+    </script>
+    <footer class="rodape">
+        <div>
+            <p>© 2024 - BumbaMeuMaranhão. Kaine Lirines</p>
+        </div>
+        <div>
+            <a href=""><img class="img_icons" src="./assets/linkedin.png" alt="Linkedin Kaine"></a>
+            <a href=""><img class="img_icons" src="./assets/github.png" alt="Github Kaine"></a>
+            <a href=""><img class="img_icons" src="./assets/instagram.png" alt="instagram Kaine"></a>
+        </div>
+    </footer>
+</body>

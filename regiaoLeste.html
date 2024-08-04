@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BumbaMeuMaranhão</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <header class="cabecalho">
+        <div class="cabecalho_div">
+            <h1 class="logo">BumbaMeuMaranhão</h1>
+            <nav>
+                <ul class="cabecalho_div_menu">
+                    <div class="div_menu">
+                        <li class="menu_item"><a href="./cadastro.html">Efetue seu cadastro</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./index.html"><img src="./assets/coracao.png" alt="">Favoritos</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="/index.html"><img src="./assets/carrinho-de-compras.png" alt="">Carrinho</a></li>
+                    </div>
+                    <div class="div_menu">
+                        <li class="menu_item"><a class="menu_item" href="./login.html"><img src="./assets/do-utilizador.png" alt="">Meu Perfil</a></li>    
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="principal_desc">
+        <section class="sec_desc">
+            <h1 id="cidade"></h1>
+            <h2 id="regiao"></h2>
+            <h3 id="atrativo"></h3>
+            <p id="descricao"></p>
+            <div class="img_map">
+                <img id="imgRegiao" class="imgRegiao" src="./assets/regiao_leste.jpg" alt="">
+                <div id="map"></div>
+            </div>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        </section>
+    </main>
+    <footer class="rodape">
+        <div>
+            <p>© 2024 - BumbaMeuMaranhão. Kaine Lirines</p>
+        </div>
+        <div>
+            <a href=""><img class="img_icons" src="./assets/linkedin.png" alt="Linkedin Kaine"></a>
+            <a href=""><img class="img_icons" src="./assets/github.png" alt="Github Kaine"></a>
+            <a href=""><img class="img_icons" src="./assets/instagram.png" alt="instagram Kaine"></a>
+        </div>
+    </footer>
+    <script>
+        // Inicializa o mapa centralizado em Codó, Maranhão
+        var map = L.map('map').setView([-4.4550, -43.8847], 13); // Coordenadas do centro de Codó
+
+        // Adiciona o tile layer (camada de azulejos) do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Adiciona um marcador para Codó, Maranhão
+        L.marker([-4.4550, -43.8847]).addTo(map)
+            .bindPopup('Codó, Maranhão')
+            .openPopup();
+
+        const descricaoElement = document.getElementById('descricao');
+        const cidadeElement = document.getElementById('cidade');
+        const regiaoElement = document.getElementById('regiao');
+        const atrativoElement = document.getElementById('atrativo');
+
+
+        const url1 = 'http://localhost:3000/atrativos/4';
+        const url2 = 'http://localhost:3000/destinos/4';
+        
+        Promise.all([
+            fetch(url1).then(response => response.json()),
+            fetch(url2).then(response => response.json())
+        ])
+
+        .then(([res1, res2]) =>{
+            descricaoElement.textContent = res1.descricao;
+            cidadeElement.textContent = res2.cidade;
+            regiaoElement.textContent = res2.regiao;
+            atrativoElement.textContent = res2.atrativo;
+        })
+        .catch(function(error) {
+                console.log(error);
+            });
+    </script>
+</body>
